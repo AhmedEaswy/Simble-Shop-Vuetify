@@ -1,16 +1,22 @@
 <template>
-  <div id="app">
-    <Navbar />
-    <router-view />
+  <div>
+    <v-app>
+      <Header />
+    </v-app>
   </div>
 </template>
 
-<style lang="scss">
-
-</style>
 <script>
-import Navbar from "./components/global/Navbar";
+import Header from "./components/global/Header";
+import store from "@/store";
 export default {
-  components: { Navbar }
-}
+  name: "App",
+  components: { Header },
+  data: () => ({
+    //
+  }),
+  created() {
+    store.dispatch("themeModule/runDefaultTheme", { vm: this });
+  }
+};
 </script>
