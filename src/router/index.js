@@ -1,16 +1,29 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
+import Login from "../views/login.vue";
+import Profile from "../views/profile.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
+    path: '/',
     name: "Home",
     component: Home,
+    alias: '/home'
   },
-  // {
+  {
+    path: "/login",
+    name: "Login",
+    component: Login,
+  },
+  {
+    path: "/profile",
+    name: "Profile",
+    component: Profile,
+  },
+// {
   //   path: "/about",
   //   name: "About",
   // route level code-splitting

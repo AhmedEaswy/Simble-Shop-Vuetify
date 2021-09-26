@@ -4,12 +4,16 @@ import Vuex from "vuex";
 Vue.use(Vuex);
 
 import themeModule from './themeModule';
+import authModule from './authModule';
 
 export default new Vuex.Store({
-  state: {},
+  state: {
+
+  },
   mutations: {},
   actions: {},
   modules: {
-    themeModule
+    themeModule,
+    authModule
   },
 });
