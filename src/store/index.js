@@ -5,15 +5,24 @@ Vue.use(Vuex);
 
 import themeModule from './themeModule';
 import authModule from './authModule';
+import shopModule from './shopModule';
+import homeModule from './homeModule';
 
 export default new Vuex.Store({
   state: {
 
   },
-  mutations: {},
+  getters: {
+
+  },
+  mutations: {
+
+  },
   actions: {},
   modules: {
     themeModule,
-    authModule
+    authModule,
+    shopModule,
+    homeModule
   },
 });

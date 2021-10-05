@@ -2,24 +2,39 @@
 <template>
   <div>
     <v-card
-        style="padding: 20px"
-        class="mx-auto my-12"
-        max-width="500">
+      style="padding: 20px"
+      class="mx-auto my-12"
+      max-width="500">
       <p class="text-h4 text--primary">
-        Login
+        Register
       </p>
       <v-form
         ref="form"
         v-model="valid"
         lazy-validation
       >
-
+        <v-text-field
+          v-model="loginForm.name"
+          :rules="nameRules"
+          label="Name"
+          required
+          outlined
+        ></v-text-field>
         <v-text-field
           v-model="loginForm.email"
           :rules="emailRules"
           label="E-mail"
           required
           outlined
+        ></v-text-field>
+
+        <v-text-field
+          v-model="loginForm.phone"
+          :rules="phoneRules"
+          label="Phone"
+          required
+          outlined
+          :counter="11"
         ></v-text-field>
         <v-text-field
           v-model="loginForm.password"
@@ -78,15 +93,22 @@ export default {
     show1: false,
     nameRules: [
       v => !!v || 'Name is required',
-      v => (v && v.length <= 10) || 'Name must be less than 10 characters',
+      v => (v && v.length > 3) || 'Name must be more than 3 characters',
     ],
     loginForm: {
+      name: '',
       email: '',
       password: '',
+      phone: ''
     },
     emailRules: [
       v => !!v || 'E-mail is required',
       v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+    ],
+    phoneRules: [
+      v => !!v || 'Phone is required',
+      v => v.length === 11 || 'Phone must be 11 characters'
+      // v => (v.length !== 11) || 'Phone must be 11 characters',
     ],
     rules: {
       required: value => !!value || 'Required.',
@@ -103,7 +125,7 @@ export default {
   methods: {
     async submit() {
       if (this.$refs.form.validate()) {
-        await store.dispatch("authModule/LogIn", this.loginForm);
+        await store.dispatch("authModule/register", this.loginForm);
       } else {
         this.$refs.form.validate();
       }

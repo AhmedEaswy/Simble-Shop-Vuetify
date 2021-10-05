@@ -2,9 +2,14 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Login from "../views/login.vue";
+import Register from "../views/register.vue";
 import Profile from "../views/profile.vue";
+import Products from "../views/Products.vue";
+
+import store from "@/store";
 
 Vue.use(VueRouter);
+
 
 const routes = [
   {
@@ -22,16 +27,26 @@ const routes = [
     path: "/profile",
     name: "Profile",
     component: Profile,
+    meta: {
+      requiresAuth: true
+    }
   },
-// {
-  //   path: "/about",
-  //   name: "About",
-  // route level code-splitting
-  // this generates a separate chunk (about.[hash].js) for this route
-  // which is lazy-loaded when the route is visited.
-  // component: () =>
-  //   import(/* webpackChunkName: "about" */ "../views/About.vue"),
-  // },
+  {
+    path: "/register",
+    name: "Register",
+    component: Register,
+  },
+  {
+    path: "/products",
+    name: "Products",
+    component: Products,
+  },
+  {
+    path: "/products/category/:categoryId",
+    name: "ProductsCategory",
+    component: Products,
+    props: true
+  },
 ];
 
 const router = new VueRouter({
@@ -39,5 +54,45 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 });
+
+
+
+router.beforeResolve()
+
+
+
+// call products with category filter or not
+router.beforeEach((to, from, next) => {
+  if(to.name === "ProductsCategory") {
+    store.dispatch('shopModule/callProductsWithCat', to.params.categoryId)
+  } else if (to.name === "Products" && !to.params.categoryId) {
+    store.dispatch("shopModule/callProducts");
+  }
+  next();
+});
+
+
+router.afterEach(() => {
+
+  // Loading Spinner End
+  setTimeout(function () {
+    store.commit('themeModule/endLoading')
+  }, 500)
+
+});
+
+
+
+// router.beforeEach((to, from, next) => {
+//   setTimeout(function() {
+//     store.commit("themeModule/startLoading")
+//   }, 1000)
+//   next();
+// });
+// router.afterEach(() => {
+//   setTimeout(function() {
+//     store.commit("themeModule/endLoading")
+//   }, 1000)
+// });
 
 export default router;

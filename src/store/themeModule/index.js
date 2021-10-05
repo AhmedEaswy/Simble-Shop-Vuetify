@@ -6,7 +6,12 @@ export default {
     lang: localStorage.getItem("lang") || themeConfig.app.layout.lang,
     langs: ["en", "ar"],
     dir: localStorage.getItem("dir") || themeConfig.app.layout.dir,
-    theme: localStorage.getItem("theme") || themeConfig.app.layout.theme
+    theme: localStorage.getItem("theme") || themeConfig.app.layout.theme,
+    loading: true,
+  },
+  getters: {
+    isDark: state => state.theme === 'dark',
+    load: state => state.loading
   },
   mutations: {
     changeLang(state, lang) {
@@ -27,7 +32,13 @@ export default {
     },
     defaultTheme(state, { vm }) {
       vm.$vuetify.theme.dark = state.theme === 'dark';
-    }
+    },
+    endLoading(state) {
+      state.loading = false;
+    },
+    startLoading(state) {
+      state.loading = true;
+    },
   },
   actions: {
     handleChange({ commit }, lang) {

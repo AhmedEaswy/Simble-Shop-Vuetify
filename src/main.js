@@ -10,6 +10,8 @@ import axios from 'axios';
 import VueAxios from 'vue-axios';
 Vue.use(VueAxios, axios)
 
+import './directives.js'
+
 axios.defaults.baseURL = 'https://student.valuxapps.com/api/';
 axios.defaults.withCredentials = true;
 // axios.defaults.headers.post['Content-Type'] ='application/x-www-form-urlencoded';

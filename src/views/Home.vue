@@ -10,38 +10,116 @@
         show-arrows-on-hover
       >
         <v-carousel-item
-          v-for="(slide, i) in slides"
-          :key="i"
-          :src="slide.img"
+          v-for="slide in banners"
+          :key="slide.id"
+          :src="slide.image"
         >
-          <v-sheet
-            color="rgba(000,000,000,0.5)"
-            height="105%"
-          >
-            <v-row
-              class="fill-height"
-              align="center"
-              justify="center"
-            >
-              <div class="text-h2 white--text">
-                {{ slide.title }} Slide
-              </div>
-            </v-row>
-          </v-sheet>
+
+<!--          <v-sheet-->
+<!--            color="rgba(000,000,000,0.5)"-->
+<!--            height="105%"-->
+<!--          >-->
+<!--&lt;!&ndash;            <v-row&ndash;&gt;-->
+<!--&lt;!&ndash;              class="fill-height"&ndash;&gt;-->
+<!--&lt;!&ndash;              align="center"&ndash;&gt;-->
+<!--&lt;!&ndash;              justify="center"&ndash;&gt;-->
+<!--&lt;!&ndash;            >&ndash;&gt;-->
+<!--&lt;!&ndash;              <div class="text-h2 white&#45;&#45;text">&ndash;&gt;-->
+<!--&lt;!&ndash;                {{ slide.title }} Slide&ndash;&gt;-->
+<!--&lt;!&ndash;              </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            </v-row>&ndash;&gt;-->
+<!--          </v-sheet>-->
+
         </v-carousel-item>
       </v-carousel>
+    </v-sheet>
+    <v-sheet>
+      <v-container class="grey lighten-5 mt-10">
+        <v-row no-gutters>
+          <v-col
+            v-for="item in features"
+            :key="item.index"
+            cols="12"
+            sm="4"
+          >
+            <v-card
+              class="pa-5"
+              elevation="0"
+            >
+
+              <v-card-title class="text-h5">
+                <v-icon size="40" class="mr-3" color="blue">{{ item.icon }}</v-icon>
+                {{ item.title }}
+              </v-card-title>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-sheet>
+
+    <v-sheet>
+      <v-container class="grey lighten-5 mt-10">
+        <v-row v-if="products" no-gutters>
+          <v-col
+            v-for="product in products"
+            :key="product.id"
+            cols="12"
+            sm="4"
+          >
+            <Product :product="product"/>
+          </v-col>
+        </v-row>
+        <v-row
+          v-else
+          v-for="n in 2"
+          :key="n"
+          class="mt-5"
+        >
+          <v-col
+            v-for="n in 3"
+            :key="n"
+            cols="12"
+            sm="4"
+          >
+          <v-skeleton-loader
+            v-bind="attrs"
+            type="image, card-heading, list-item-three-line, actions"
+          ></v-skeleton-loader>
+          </v-col>
+        </v-row>
+      </v-container>
     </v-sheet>
   </div>
 </template>
 
 <script>
 import store from '@/store';
+import Product from '@/components/shop/Product';
+import { mapGetters } from "vuex";
 
 export default {
   name: "Home",
-
+  components: {
+    Product
+  },
   data() {
     return {
+      loading: false,
+      features: [
+        {
+          icon: 'mdi-truck',
+          title: 'Fast Delivered'
+        },
+        {
+          icon: 'mdi-account-supervisor',
+          title: 'Customer Support'
+        },
+        {
+          icon: 'mdi-hours-24',
+          title: 'Work 24 Hours'
+        },
+      ],
+      selection: 1,
       lang: store.state.lang,
       langs: store.state.langs,
       theme: store.state.theme,
@@ -53,41 +131,36 @@ export default {
         'red lighten-1',
         'deep-purple accent-4',
       ],
-      slides: [
-        {
-          img: 'https://picsum.photos/id/11/500/300',
-          title: 'First'
-        },
-        {
-          img: 'https://picsum.photos/id/11/500/300',
-          title: 'Second'
-        },
-        {
-          img: 'https://picsum.photos/id/11/500/300',
-          title: 'Third'
-        },
-        {
-          img: 'https://picsum.photos/id/11/500/300',
-          title: 'Fourth'
-        },
-        {
-          img: 'https://picsum.photos/id/11/500/300',
-          title: 'Fifth'
-        },
-      ],
+
     }
   },
   props: {
     attrs: {
-      type: Object,
-      default: () => ({}),
+      class: 'mb-6',
+      boilerplate: true,
+      elevation: 2,
     },
+  },
+  computed: {
+    ...mapGetters({
+      products: "shopModule/products",
+      productsCategory: "shopModule/productsCategory",
+      loadProducts: "shopModule/loadProducts",
+      isAuthenticated: "authModule/isAuthenticated",
+      banners: "homeModule/banners",
+    }),
   },
   methods: {
     handleChange(currentLang) {
       store.dispatch("themeModule/handleChange", currentLang);
       window.location.reload();
     },
+  },
+  beforeMount() {
+    store.dispatch("homeModule/getBanners");
+    if (!this.products) {
+      store.dispatch("shopModule/callProducts");
+    }
   },
 };
 </script>
