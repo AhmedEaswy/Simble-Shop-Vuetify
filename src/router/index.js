@@ -65,7 +65,40 @@ const router = new VueRouter({
 
 router.beforeResolve()
 
+// auth guard
+router.beforeEach((to, from, next) => {
 
+  // Loading Spin Start
+  store.commit('themeModule/startLoading')
+
+  const publicPages = ['/login', '/register'];
+  const logPages = publicPages.includes(to.path);
+
+
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    // this route requires auth, check if logged in
+    // if not, redirect to login page.
+    if (!store.getters["authModule/isAuthenticated"] && !localStorage.getItem('user-token')) {
+      next({ name: 'Login' })
+    } else {
+      if (!store.state.authModule.addresses) {
+        store.dispatch("authModule/Addresses/getAddresses")
+      }
+      next() // go to wherever I'm going
+    }
+  } else if (logPages) {
+
+    if (!store.getters["authModule/isAuthenticated"] && !localStorage.getItem('user-token')) {
+      next()
+    } else {
+      next({ name: 'Profile' })
+    }
+
+  } else {
+    next();
+  }
+
+});
 
 // call products with category filter or not
 router.beforeEach((to, from, next) => {
@@ -85,7 +118,7 @@ router.beforeEach((to, from, next) => {
   next();
 });
 
-
+// end loading and close cart after going to new page
 router.afterEach(() => {
   store.commit("shopModule/Cart/closeCart");
   // Loading Spinner End
@@ -97,16 +130,5 @@ router.afterEach(() => {
 
 
 
-// router.beforeEach((to, from, next) => {
-//   setTimeout(function() {
-//     store.commit("themeModule/startLoading")
-//   }, 1000)
-//   next();
-// });
-// router.afterEach(() => {
-//   setTimeout(function() {
-//     store.commit("themeModule/endLoading")
-//   }, 1000)
-// });
 
 export default router;

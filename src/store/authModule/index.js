@@ -7,6 +7,8 @@ import store from "@/store"
 
 Vue.use(VueAxios, axios);
 
+import Addresses from "./addresses";
+
 export default {
   namespaced: true,
   state: {
@@ -154,5 +156,8 @@ export default {
       store.dispatch("shopModule/Favourites/clearFavourites");
       store.dispatch("shopModule/clearUserData");
     }
+  },
+  modules: {
+    Addresses
   }
 };

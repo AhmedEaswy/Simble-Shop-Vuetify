@@ -162,7 +162,7 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .product-image {
   border-radius: 5px;
   border:1px solid #CCC;
@@ -170,7 +170,7 @@ export default {
   align-items: center;
   justify-content: center;
   display: flex;
-  height: 500px;
+  max-height: 500px;
   &:hover {
     border-color:#555;
   }
@@ -191,7 +191,12 @@ export default {
 .black--border {
   border-color: #000;
 }
-.zoom-on-hover {
-  transform: scale(0.95);
+.normal {
+  max-height: 495px !important;
+
 }
+.zoom-on-hover {
+  max-height: 495px !important;
+}
+
 </style>
