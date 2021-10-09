@@ -44,3 +44,11 @@ export default {
   }
 };
 </script>
+
+
+<style lang="scss">
+.v-link {
+  text-decoration: none;
+  cursor: pointer;
+}
+</style>

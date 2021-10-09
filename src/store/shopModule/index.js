@@ -16,12 +16,16 @@ export default {
     productsCategory: null,
     loadProducts: null,
     categories: null,
+    singleProduct: null,
+    singleProductStatus: null,
   },
   getters: {
     loadProducts: state => state.loadProducts,
     products: state => state.products,
     productsCategory: state => state.productsCategory,
     categories: state => state.categories,
+    singleProduct: state => state.singleProduct,
+    singleProductStatus: state => state.singleProductStatus,
   },
   mutations: {
     SET_PRODUCTS(state, products) {
@@ -33,6 +37,10 @@ export default {
     SET_CATEGORIES(state, categories) {
       state.categories = categories.data.data
     },
+    SET_SINGLE_PRODUCT(state, product) {
+      state.singleProduct = product.data;
+      state.singleProductStatus = product.status;
+    }
   },
   actions: {
     getProducts({state, commit}) {
@@ -101,6 +109,21 @@ export default {
         item.in_cart = false;
       })
 
+    },
+
+    getProduct({commit}, productId) {
+      commit("SET_SINGLE_PRODUCT", {});
+      axios.get(
+        `products/${productId}`,
+        {
+          headers: {
+            "lang": localStorage.getItem("lang"),
+            "Content-Type": "application/json",
+            "Authorization": localStorage.getItem("user-token")
+          }
+        }).then(res => {
+          commit("SET_SINGLE_PRODUCT", res.data);
+      })
     }
   },
 

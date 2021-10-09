@@ -31,16 +31,18 @@
 <!--        </template>-->
       </v-img>
 
-      <v-card-title> {{ product.name | slice(30) }} {{ product.name.length > 30 ? " ..." : "" }}</v-card-title>
+      <v-card-title>
+        <router-link :to="{ name: 'Product',  params: { productId: product.id }}" tag="div" class="v-link">
+          {{ product.name | slice(30) }} {{ product.name.length > 30 ? " ..." : "" }}
+        </router-link>
+      </v-card-title>
 
       <v-card-text>
         <v-row
           align="center"
           class="mx-0"
         >
-
           <div class="grey--text mb-4">
-
             <span class="mr-3">${{ product.price }} </span>
             <span class="text-decoration-line-through"> ${{ product.old_price }}</span>
           </div>
@@ -101,7 +103,7 @@ export default {
     cartProccess: function () {return store.getters["shopModule/Cart/cartProccess"]},
   },
   methods: {
-    reserve () {
+    reserve() {
       this.loading = true
       setTimeout(() => (this.loading = false), 2000)
     },

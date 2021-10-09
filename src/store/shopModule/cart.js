@@ -45,10 +45,15 @@ export default {
       state.cart = cart;
     },
 
-    UPDATE_CART(state, product) {
-      // product = product.product;
-      // update change to main products array
+    UPDATE_CART_FOR_SINGLE() {
+      if (store.state.shopModule.singleProduct) {
+        store.state.shopModule.singleProduct.in_cart = !store.state.shopModule.singleProduct.in_cart;
+      }
+    },
 
+    UPDATE_CART(state, product) {
+      store.commit('shopModule/Cart/UPDATE_CART_FOR_SINGLE')
+      // update change to main products array
       if (store.state.shopModule.products) {
         store.state.shopModule.products.map((item) => {
           if(item.id === product.product.id) item.in_cart = !item.in_cart;

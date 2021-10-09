@@ -5,6 +5,7 @@ import Login from "../views/login.vue";
 import Register from "../views/register.vue";
 import Profile from "../views/profile.vue";
 import Products from "../views/Products.vue";
+import Product from "../views/Product.vue";
 
 import store from "@/store";
 
@@ -42,6 +43,11 @@ const routes = [
     component: Products,
   },
   {
+    path: "/products/:productId",
+    name: "Product",
+    component: Product,
+  },
+  {
     path: "/products/category/:categoryId",
     name: "ProductsCategory",
     component: Products,
@@ -71,9 +77,17 @@ router.beforeEach((to, from, next) => {
   next();
 });
 
+// call single product page
+router.beforeEach((to, from, next) => {
+  if(to.name === "Product") {
+    store.dispatch("shopModule/getProduct", to.params.productId);
+  }
+  next();
+});
+
 
 router.afterEach(() => {
-
+  store.commit("shopModule/Cart/closeCart");
   // Loading Spinner End
   setTimeout(function () {
     store.commit('themeModule/endLoading')

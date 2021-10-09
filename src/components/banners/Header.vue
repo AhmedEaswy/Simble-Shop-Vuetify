@@ -140,14 +140,6 @@
 
         </v-list-item-group>
 
-        <v-list-item :to="{ name: 'Products' }">
-          <v-list-item-icon>
-
-            <v-icon>mdi-shopping</v-icon>
-          </v-list-item-icon>
-          <v-list-item-title>Shop</v-list-item-title>
-        </v-list-item>
-
         <v-list-item-group>
           <v-list-group
             prepend-icon="mdi-group"
@@ -158,7 +150,9 @@
                 <v-list-item-title>Categories</v-list-item-title>
               </v-list-item-content>
             </template>
-
+            <v-list-item :to="{ name: 'Products' }">
+              <v-list-item-title>All</v-list-item-title>
+            </v-list-item>
             <v-list-item
               v-for="category in categories"
               :key="category.id"

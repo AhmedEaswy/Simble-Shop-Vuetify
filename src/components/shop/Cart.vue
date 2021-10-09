@@ -45,7 +45,7 @@
                 <v-img :src="item.product.image"></v-img>
               </v-list-item-avatar>
               <v-list-item-content>
-                <v-list-item-title>{{item.product.name}}</v-list-item-title>
+                <v-list-item-title> <router-link :to="{ name: 'Product',  params: { productId: item.product.id }}" tag="div" class="v-link">{{item.product.name}}</router-link></v-list-item-title>
                 <v-list-item-subtitle>${{item.product.price}}</v-list-item-subtitle>
               </v-list-item-content>
               <v-spacer></v-spacer>

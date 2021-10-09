@@ -41,8 +41,13 @@ export default {
     SET_FAVOURITS(state, favourites) {
       state.favourites = favourites.data.data;
     },
+    UPDATE_FAVOURITE_FOR_SINGLE() {
+      if(store.state.shopModule.singleProduct) {
+        store.state.shopModule.singleProduct.in_favorites = !store.state.shopModule.singleProduct.in_favorites;
+      }
+    },
     UPDATE_FAVOURITS(state, product) {
-
+      store.commit("shopModule/Favourites/UPDATE_FAVOURITE_FOR_SINGLE");
       if(store.state.shopModule.products) {
         store.getters["shopModule/products"].map((item) => {
           if(item.id === product.product.id) {

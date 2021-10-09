@@ -13,7 +13,6 @@
               class="pa-5"
               elevation="0"
             >
-
               <v-card-title class="text-h5">
                 <v-icon size="40" class="mr-3" color="blue">{{ item.icon }}</v-icon>
                 {{ item.title }}
