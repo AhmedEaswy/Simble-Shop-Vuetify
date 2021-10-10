@@ -8,9 +8,24 @@ export default {
   namespaced: true,
   state: {
     banners: {data: []},
+    features: [
+      {
+        icon: 'mdi-truck',
+        title: 'Fast Delivered'
+      },
+      {
+        icon: 'mdi-account-supervisor',
+        title: 'Customer Support'
+      },
+      {
+        icon: 'mdi-hours-24',
+        title: 'Work 24 Hours'
+      },
+    ],
   },
   getters: {
-    banners: state => state.banners.data
+    banners: state => state.banners.data,
+    features: state => state.features
   },
   mutations: {
     SET_BANNERS(state, banners) {

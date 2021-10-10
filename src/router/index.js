@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
+import About from "../views/About.vue";
 import Login from "../views/login.vue";
 import Register from "../views/register.vue";
 import Profile from "../views/profile.vue";
@@ -18,6 +19,12 @@ const routes = [
     name: "Home",
     component: Home,
     alias: '/home'
+  },
+  {
+    path: '/about',
+    name: "About",
+    component: About,
+    alias: '/about'
   },
   {
     path: "/login",

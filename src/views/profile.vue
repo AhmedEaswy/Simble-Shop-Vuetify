@@ -235,6 +235,22 @@
               No DATA
             </template>
           </v-data-table>
+          <div v-else>
+            <div class="mx-auto text-center">
+              <v-btn
+                :loading="true"
+                :disabled="true"
+                color="blue-grey"
+                class="ma-2 white--text"
+                fab
+                @click="loader = 'loading5'"
+              >
+                <v-icon dark>
+                  mdi-check
+                </v-icon>
+              </v-btn>
+            </div>
+          </div>
 <!--          <v-simple-table>-->
 <!--            <template v-slot:default>-->
 <!--              <thead>-->
