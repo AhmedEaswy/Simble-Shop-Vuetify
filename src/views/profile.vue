@@ -109,80 +109,98 @@
                       <span class="text-h5">{{ formTitle }}</span>
                     </v-card-title>
 
-                    <v-card-text>
-                      <v-container>
-                        <v-row>
-                          <v-col
-                            cols="12"
-                            sm="6"
-                            md="4"
-                          >
-                            <v-text-field
-                              v-model="editedItem.name"
-                              label="Name"
-                            ></v-text-field>
-                          </v-col>
-                          <v-col
-                            cols="12"
-                            sm="6"
-                            md="4"
-                          >
-                            <v-text-field
-                              v-model="editedItem.city"
-                              label="City"
-                            ></v-text-field>
-                          </v-col>
-                          <v-col
-                            cols="12"
-                            sm="6"
-                            md="4"
-                          >
-                            <v-text-field
-                              v-model="editedItem.region"
-                              label="Region"
-                            ></v-text-field>
-                          </v-col>
-                          <v-col
-                            cols="12"
-                            sm="6"
-                            md="4"
-                          >
-                            <v-text-field
-                              v-model="editedItem.details"
-                              label="Details"
-                            ></v-text-field>
-                          </v-col>
-                          <v-col
-                            cols="12"
-                            sm="6"
-                            md="4"
-                          >
-                            <v-text-field
-                              v-model="editedItem.notes"
-                              label="Notes"
-                            ></v-text-field>
-                          </v-col>
-                        </v-row>
-                      </v-container>
-                    </v-card-text>
+                    <v-form
+                      ref="editedItem"
+                      v-model="vaildEditAddress"
+                      lazy-validation
+                    >
+                      <v-card-text>
 
-                    <v-card-actions>
-                      <v-spacer></v-spacer>
-                      <v-btn
-                        color="blue darken-1"
-                        text
-                        @click="close"
-                      >
-                        Cancel
-                      </v-btn>
-                      <v-btn
-                        color="blue darken-1"
-                        text
-                        @click="save"
-                      >
-                        Save
-                      </v-btn>
-                    </v-card-actions>
+                        <v-container>
+                          <v-row>
+                            <v-col
+                              cols="12"
+                              sm="6"
+                              md="4"
+                            >
+                              <v-text-field
+                                v-model="editedItem.name"
+                                :rules="requiredRules"
+                                label="Name"
+                                required
+                              ></v-text-field>
+                            </v-col>
+                            <v-col
+                              cols="12"
+                              sm="6"
+                              md="4"
+                            >
+                              <v-text-field
+                                v-model="editedItem.city"
+                                label="City"
+                                :rules="requiredRules"
+                                required
+                              ></v-text-field>
+                            </v-col>
+                            <v-col
+                              cols="12"
+                              sm="6"
+                              md="4"
+                              required
+                              :rules="requiredRules"
+
+                            >
+                              <v-text-field
+                                v-model="editedItem.region"
+                                label="Region"
+                                :rules="requiredRules"
+                              ></v-text-field>
+                            </v-col>
+                            <v-col
+                              cols="12"
+                              sm="6"
+                              md="4"
+                            >
+                              <v-text-field
+                                v-model="editedItem.details"
+                                label="Details"
+                                :rules="requiredRules"
+                              ></v-text-field>
+                            </v-col>
+                            <v-col
+                              cols="12"
+                              sm="6"
+                              md="4"
+                            >
+                              <v-text-field
+                                v-model="editedItem.notes"
+                                label="Notes"
+                                :rules="requiredRules"
+                              ></v-text-field>
+                            </v-col>
+                          </v-row>
+                      </v-container>
+
+                      </v-card-text>
+
+                      <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                          color="blue darken-1"
+                          text
+                          @click="close"
+                        >
+                          Cancel
+                        </v-btn>
+                        <v-btn
+                          color="blue darken-1"
+                          text
+                          @click="save"
+                        >
+                          Save
+                        </v-btn>
+                      </v-card-actions>
+                    </v-form>
                   </v-card>
                 </v-dialog>
                 <v-dialog v-model="dialogDelete" max-width="500px">
@@ -290,6 +308,7 @@ export default {
     return {
       loading: false,
       valid: true,
+      vaildEditAddress: true,
       show1: false,
       nameRules: [
         v => !!v || 'Name is required',
@@ -305,6 +324,7 @@ export default {
         v => !!v || 'E-mail is required',
         v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
       ],
+
       passwordRules: [
         v => !!v || 'Password is required',
         v => (v && v.length >= 6) || 'Min 6 characters',
@@ -319,7 +339,9 @@ export default {
         min: v => (v && v.length >= 6) || 'Min 6 characters',
         emailMatch: () => (`The email and password you entered don't match`),
       },
-
+      requiredRules: [
+        v => !!v || 'This Field is required',
+      ],
       dialog: false,
       dialogDelete: false,
       headers: [
@@ -369,6 +391,7 @@ export default {
       successMessage: "authModule/successMessage",
       logProccess: "authModule/logProccess",
       addresses: "authModule/Addresses/addresses",
+      addressesLogProccess: "authModule/Addresses/logProccess",
     }),
     formTitle () {
       return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
@@ -398,14 +421,17 @@ export default {
     },
 
     deleteItem (item) {
-      this.editedIndex = this.addresses.indexOf(item)
-      this.editedItem = Object.assign({}, item)
+      this.editedIndex = item;
       this.dialogDelete = true
     },
 
     deleteItemConfirm () {
-      this.addresses.splice(this.editedIndex, 1)
-      this.closeDelete()
+      // this.addresses.splice(this.editedIndex, 1)
+      // this.closeDelete()
+      store.dispatch("authModule/Addresses/deleteAddresses", this.editedIndex);
+      setTimeout( () => {
+        this.closeDelete()
+      }, 1000)
     },
 
     close () {
@@ -426,12 +452,22 @@ export default {
 
     save () {
       if (this.editedIndex > -1) {
-        Object.assign(this.addresses[this.editedIndex], this.editedItem)
+        // Object.assign(this.addresses[this.editedIndex], this.editedItem)
+        store.dispatch("authModule/Addresses/editAddresses", this.editedItem)
+        setTimeout( () => {
+          this.close();
+        }, 1000);
       } else {
-        this.addresses.push(this.editedItem)
-        // store.dispatch("authModule/Addresses/addAddresses", this.editedItem)
+        if (this.$refs.editedItem.validate()) {
+          store.dispatch("authModule/Addresses/addAddresses", this.editedItem)
+          setTimeout( () => {
+            this.close();
+          }, 1000);
+        } else {
+          this.$refs.editedItem.validate();
+        }
+
       }
-      this.close()
     },
   },
   // beforeMount() {
