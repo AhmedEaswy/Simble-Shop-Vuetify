@@ -451,23 +451,38 @@ export default {
     },
 
     save () {
-      if (this.editedIndex > -1) {
-        // Object.assign(this.addresses[this.editedIndex], this.editedItem)
-        store.dispatch("authModule/Addresses/editAddresses", this.editedItem)
-        setTimeout( () => {
-          this.close();
-        }, 1000);
-      } else {
-        if (this.$refs.editedItem.validate()) {
-          store.dispatch("authModule/Addresses/addAddresses", this.editedItem)
+      if (this.$refs.editedItem.validate()) {
+        if (this.editedIndex > -1) {
+          // Object.assign(this.addresses[this.editedIndex], this.editedItem)
+          store.dispatch("authModule/Addresses/editAddresses", this.editedItem)
           setTimeout( () => {
             this.close();
           }, 1000);
         } else {
-          this.$refs.editedItem.validate();
+          store.dispatch("authModule/Addresses/addAddresses", this.editedItem)
+          setTimeout( () => {
+            this.close();
+          }, 1000);
         }
-
+      } else {
+        this.$refs.editedItem.validate();
       }
+      // if (this.editedIndex > -1) {
+      //   // Object.assign(this.addresses[this.editedIndex], this.editedItem)
+      //   store.dispatch("authModule/Addresses/editAddresses", this.editedItem)
+      //   setTimeout( () => {
+      //     this.close();
+      //   }, 1000);
+      // } else {
+      //   if (this.$refs.editedItem.validate()) {
+      //     store.dispatch("authModule/Addresses/addAddresses", this.editedItem)
+      //     setTimeout( () => {
+      //       this.close();
+      //     }, 1000);
+      //   } else {
+      //     this.$refs.editedItem.validate();
+      //   }
+      // }
     },
   },
   // beforeMount() {
