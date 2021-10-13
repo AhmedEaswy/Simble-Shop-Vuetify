@@ -19,6 +19,8 @@ import Header from "./components/banners/Header";
 import store from "@/store";
 import { mapGetters } from "vuex";
 
+import "@/assets/scss/main.scss";
+
 export default {
   name: "App",
   components: { Header },

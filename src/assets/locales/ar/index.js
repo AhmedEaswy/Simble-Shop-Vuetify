@@ -1,5 +1,25 @@
 export default {
-  greetingUser: 'مرحبا {name}',
-  welcome: 'مرحيا بالمتجر',
-  home: 'الرئيسية'
+  greetingUser: "مرحبا {name}",
+  welcome: "مرحيا بالمتجر",
+  home: "الرئيسية",
+  about: "من نحن",
+  categories: "الفئات",
+  languages: "اللغات",
+  profile: "الصفحة الشخصية",
+  logo: "الشعار",
+  login_register: "انشاء حساب او تسجيل دخول",
+  logout: "تسجيل خروج",
+  settings: "الاعدادات",
+  my_addresses: "عناويني",
+  btn: {
+    new_item: "عنضر جديد",
+    save_changes: "حفظ التغيرات",
+    save: "حفظ",
+  },
+  actions: "العمليات",
+  name: "أسم",
+  city: "مدينة",
+  region: "منطقة",
+  details: "تفاصيل",
+  notes: "ملاحظات",
 }

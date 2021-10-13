@@ -2,7 +2,7 @@
 import Vue from "vue";
 import axios from "axios";
 import VueAxios from "vue-axios";
-
+import store from "@/store";
 // sub modules
 import Cart from "./cart";
 import Favourites from "./favourites";
@@ -102,9 +102,9 @@ export default {
 
 
 
-    clearUserData({ state }) {
+    clearUserData() {
 
-      state.products.map((item) => {
+      store.state.products.map(item => {
         item.in_favorites = false;
         item.in_cart = false;
       })

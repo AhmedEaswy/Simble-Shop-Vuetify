@@ -154,7 +154,8 @@ export default {
       commit("logout", user);
       store.dispatch("shopModule/Cart/clearCart");
       store.dispatch("shopModule/Favourites/clearFavourites");
-      store.dispatch("shopModule/clearUserData");
+      // store.dispatch("shopModule/clearUserData");
+      router.go();
     }
   },
   modules: {

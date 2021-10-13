@@ -64,7 +64,7 @@
               <v-card-actions>
                 <v-btn color="primary" :disabled="!valid" :loading="logProccess" @click="update">
                   <v-icon left dark>mdi-check</v-icon>
-                  Save Changes
+                  {{$t('btn.save_changes')}}
                 </v-btn>
               </v-card-actions>
             </div>
@@ -82,7 +82,7 @@
               <v-toolbar
                 flat
               >
-                <v-toolbar-title>My Addresses</v-toolbar-title>
+                <v-toolbar-title>{{ $t('my_addresses') }}</v-toolbar-title>
                 <v-divider
                   class="mx-4"
                   inset
@@ -190,14 +190,14 @@
                           text
                           @click="close"
                         >
-                          Cancel
+                          {{$t('btn.cancel')}}
                         </v-btn>
                         <v-btn
                           color="blue darken-1"
-                          text
                           @click="save"
+                          text
                         >
-                          Save
+                          {{$t('btn.save')}}
                         </v-btn>
                       </v-card-actions>
                     </v-form>
@@ -251,48 +251,6 @@
               </v-btn>
             </div>
           </div>
-<!--          <v-simple-table>-->
-<!--            <template v-slot:default>-->
-<!--              <thead>-->
-<!--              <tr>-->
-<!--                <th class="text-left">-->
-<!--                  Name-->
-<!--                </th>-->
-<!--                <th class="text-left">-->
-<!--                  City-->
-<!--                </th>-->
-<!--                <th class="text-left">-->
-<!--                  Region-->
-<!--                </th>-->
-<!--                <th class="text-left">-->
-<!--                  Details-->
-<!--                </th>-->
-<!--                <th class="text-left">-->
-<!--                  Notes-->
-<!--                </th>-->
-<!--                <th class="text-left">-->
-<!--                  Actions-->
-<!--                </th>-->
-<!--              </tr>-->
-<!--              </thead>-->
-<!--              <tbody>-->
-<!--              <tr-->
-<!--                v-for="item in addresses"-->
-<!--                :key="item.id"-->
-<!--              >-->
-<!--                <td>{{ item.name }}</td>-->
-<!--                <td>{{ item.city }}</td>-->
-<!--                <td>{{ item.region }}</td>-->
-<!--                <td>{{ item.details }}</td>-->
-<!--                <td>{{ item.notes }}</td>-->
-<!--                <td>-->
-<!--                  -->
-<!--                  <v-icon>mdi-edit</v-icon>-->
-<!--                </td>-->
-<!--              </tr>-->
-<!--              </tbody>-->
-<!--            </template>-->
-<!--          </v-simple-table>-->
         </v-card>
       </v-layout>
     </v-container>
@@ -483,22 +441,6 @@ export default {
       } else {
         this.$refs.editedItem.validate();
       }
-      // if (this.editedIndex > -1) {
-      //   // Object.assign(this.addresses[this.editedIndex], this.editedItem)
-      //   store.dispatch("authModule/Addresses/editAddresses", this.editedItem)
-      //   setTimeout( () => {
-      //     this.close();
-      //   }, 1000);
-      // } else {
-      //   if (this.$refs.editedItem.validate()) {
-      //     store.dispatch("authModule/Addresses/addAddresses", this.editedItem)
-      //     setTimeout( () => {
-      //       this.close();
-      //     }, 1000);
-      //   } else {
-      //     this.$refs.editedItem.validate();
-      //   }
-      // }
     },
   },
   // beforeMount() {

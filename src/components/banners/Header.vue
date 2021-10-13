@@ -14,7 +14,7 @@
     >
       <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
 
-      <v-toolbar-title>LOGO</v-toolbar-title>
+      <v-toolbar-title>{{ $t('logo') }}</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
@@ -97,7 +97,7 @@
 
               <v-icon>mdi-login</v-icon>
             </v-list-item-icon>
-            <v-list-item-title>Login & Register</v-list-item-title>
+            <v-list-item-title>{{ $t('login_register') }}</v-list-item-title>
           </v-list-item>
           <v-list-group
             :value="false"
@@ -107,7 +107,7 @@
           >
             <template v-slot:activator>
               <v-list-item-content>
-                <v-list-item-title>Profile</v-list-item-title>
+                <v-list-item-title>{{ $t('profile') }}</v-list-item-title>
               </v-list-item-content>
             </template>
 
@@ -116,7 +116,7 @@
                   <v-icon>mdi-cog-outline</v-icon>
                 </v-list-item-icon>
               <v-list-item-content>
-                <v-list-item-title>settings</v-list-item-title>
+                <v-list-item-title>{{ $t('profile') }}</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
 
@@ -125,7 +125,7 @@
                   <v-icon>mdi-logout</v-icon>
                 </v-list-item-icon>
               <v-list-item-content>
-                <v-list-item-title>logout</v-list-item-title>
+                <v-list-item-title>{{ $t('logout') }}</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
 
@@ -140,7 +140,7 @@
             <v-list-item-icon>
               <v-icon>mdi-information</v-icon>
             </v-list-item-icon>
-            <v-list-item-title>About</v-list-item-title>
+            <v-list-item-title>{{ $t('about') }}</v-list-item-title>
           </v-list-item>
           <!--            v-model="item.active"-->
 
@@ -154,7 +154,7 @@
           >
             <template v-slot:activator>
               <v-list-item-content>
-                <v-list-item-title>Categories</v-list-item-title>
+                <v-list-item-title>{{ $t('categories') }}</v-list-item-title>
               </v-list-item-content>
             </template>
             <v-list-item :to="{ name: 'Products' }">
