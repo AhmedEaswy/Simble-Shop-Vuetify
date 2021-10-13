@@ -1,4 +1,5 @@
 export default {
   greetingUser: 'مرحبا {name}',
-  welcome: 'مرحيا بالمتجر'
+  welcome: 'مرحيا بالمتجر',
+  home: 'الرئيسية'
 }

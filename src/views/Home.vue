@@ -34,7 +34,7 @@
       </v-carousel>
     </v-sheet>
     <v-sheet>
-      <v-container class="grey lighten-5 mt-10">
+      <v-container class="mt-10">
         <v-row no-gutters>
           <v-col
             v-for="item in features"
@@ -58,7 +58,7 @@
     </v-sheet>
 
     <v-sheet>
-      <v-container class="grey lighten-5 mt-10">
+      <v-container class="mt-10">
         <v-row v-if="products" no-gutters>
           <v-col
             v-for="product in products"

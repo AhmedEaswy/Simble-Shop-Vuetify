@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-sheet>
-      <v-container class="grey lighten-5 mt-10">
+      <v-container class="mt-10">
         <v-row no-gutters>
           <v-col
             v-for="item in features"
@@ -24,7 +24,7 @@
     </v-sheet>
 
     <v-sheet>
-      <v-container class="grey lighten-5 mt-10">
+      <v-container class="mt-10">
         <div v-if="productsData && productsData.length > 0">
           <v-data-iterator
             :items="productsData"

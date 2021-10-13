@@ -1,8 +1,8 @@
 import Vue from "vue";
 
 // langs
-import en from '@/assets/locales/en';
-import ar from '@/assets/locales/ar';
+import en from '@/assets/locales/en/index';
+import ar from '@/assets/locales/ar/index';
 
 import VueI18n from 'vue-i18n';
 

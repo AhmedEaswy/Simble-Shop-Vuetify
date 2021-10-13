@@ -1,3 +1,5 @@
+<script src="../../../../my-project/src/store/index.ts"></script>
+<script src="../../../../my-project/src/store/themeModule/index.ts"></script>
 <template>
   <v-card
     class="overflow-hidden"
@@ -132,7 +134,7 @@
             <v-list-item-icon>
               <v-icon>mdi-home</v-icon>
             </v-list-item-icon>
-            <v-list-item-title>Home</v-list-item-title>
+            <v-list-item-title>{{ $t('home') }}</v-list-item-title>
           </v-list-item>
           <v-list-item :to="{ name : 'About' }">
             <v-list-item-icon>
@@ -169,6 +171,54 @@
             </v-list-item>
           </v-list-group>
         </v-list-item-group>
+        <v-divider></v-divider>
+
+        <v-list-item-group>
+
+          <template>
+            <v-subheader>Settings</v-subheader>
+
+            <v-list-item
+              active-class=""
+              class="check-no"
+            >
+              <template v-slot:default="{ active }">
+                <v-list-item-content>
+                  <v-list-item-title>Dark Mode</v-list-item-title>
+                </v-list-item-content>
+
+                <v-list-item-action>
+                  <v-checkbox
+                    :input-value="isDark"
+                    color="deep-purple accent-4"
+                    @change="handleTheme(active)"
+                  ></v-checkbox>
+                </v-list-item-action>
+              </template>
+            </v-list-item>
+          </template>
+        </v-list-item-group>
+        <v-list-group
+          :value="false"
+          no-action
+          prepend-icon="mdi-earth"
+        >
+          <template v-slot:activator>
+            <v-list-item-content>
+              <v-list-item-title>Language</v-list-item-title>
+            </v-list-item-content>
+          </template>
+
+          <v-list-item v-for="(item, index) in langs" :key="index" link @click="handleChange(item)">
+            <v-list-item-icon>
+              <v-icon v-if="item === lang">mdi-check</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>{{ item }}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+
+        </v-list-group>
       </v-list>
     </v-navigation-drawer>
     <Cart />
@@ -190,8 +240,9 @@ import Favourites from "@/components/shop/Favourites";
   },
    data() {
      return {
-       theme: store.state.theme,
-       isDark: store.state.theme === 'dark',
+       model: null,
+       activeIsDark: store.state.theme === 'dark',
+       // isDark: store.state.theme === 'dark',
        drawer: false,
        group: null,
        appTitle: 'Awesome App',
@@ -215,6 +266,9 @@ import Favourites from "@/components/shop/Favourites";
        categories: "shopModule/categories",
        cartLength: "shopModule/Cart/cartLength",
        favouritesLength: "shopModule/Favourites/favouritesLength",
+       isDark: "themeModule/isDark",
+       lang: "themeModule/lang",
+       langs: "themeModule/langs",
      }),
    },
    methods: {
@@ -229,12 +283,33 @@ import Favourites from "@/components/shop/Favourites";
      },
      openFavourites() {
        store.commit("shopModule/Favourites/openFavourites");
+     },
+     handleChange(lang) {
+       store.dispatch("themeModule/handleChange", { vm: this, lang });
+       this.$router.go();
+     },
+     configAppData() {
+       this.reload();
+       store.dispatch("themeModule/runDefaultTheme", { vm: this });
+       store.dispatch("shopModule/getCategories")
+
+       if(this.isAuthenticated || localStorage.getItem('user-token')) {
+         store.dispatch("authModule/tokenLogAuth")
+         store.dispatch("shopModule/Favourites/getFavourites")
+         store.dispatch("shopModule/Cart/getCart")
+       }
+     },
+     reload(){
+       this.isRouterAlive = false
+       setTimeout(()=>{
+         this.isRouterAlive = true
+       },0)
      }
    }
  }
 </script>
 
-<style>
+<style lang="scss">
 .fade-enter-active, .fade-leave-active {
   transition-property: opacity;
   transition-duration: .25s;
@@ -268,5 +343,15 @@ import Favourites from "@/components/shop/Favourites";
   /* .slide-fade-leave-active below version 2.1.8 */ {
   transform: translateY(-50px);
   opacity: 0;
+}
+
+.check-no {
+  cursor: auto;
+  .v-ripple__container {
+    display: none !important;
+  }
+  &:before, &:after {
+    display: none;
+  }
 }
 </style>

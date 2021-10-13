@@ -1,4 +1,5 @@
 export default {
   greetingUser: 'hello {name}',
-  welcome: 'Welcome to Shop'
+  welcome: 'Welcome to Shop',
+  home: 'Home'
 }
