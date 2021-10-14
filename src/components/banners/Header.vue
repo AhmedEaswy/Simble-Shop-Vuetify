@@ -241,8 +241,7 @@ import Favourites from "@/components/shop/Favourites";
    data() {
      return {
        model: null,
-       activeIsDark: store.state.theme === 'dark',
-       // isDark: store.state.theme === 'dark',
+       isDark: store.state.themeModule.theme === 'dark',
        drawer: false,
        group: null,
        appTitle: 'Awesome App',
@@ -266,7 +265,6 @@ import Favourites from "@/components/shop/Favourites";
        categories: "shopModule/categories",
        cartLength: "shopModule/Cart/cartLength",
        favouritesLength: "shopModule/Favourites/favouritesLength",
-       isDark: "themeModule/isDark",
        lang: "themeModule/lang",
        langs: "themeModule/langs",
        dir: "themeModule/dir",
