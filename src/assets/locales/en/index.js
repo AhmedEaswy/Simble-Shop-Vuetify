@@ -24,4 +24,43 @@ export default {
   region: "Region",
   details: "Details",
   notes: "Notes",
+  logged_in: "Logged In",
+  dark_mode: "Dark Mode",
+  empty: {
+    cart: "No Items In Cart",
+    whish_list: "No Items In Wish List",
+  },
+  products_list: "Products List",
+  total: "Total",
+  all: "All",
+  form: {
+    email: "Email",
+    name: "Name",
+    phone: "Phone",
+    Password: "Password",
+  },
+  cart: {
+    name: "Shopping Cart",
+    add: "Add To Cart"
+  },
+  wish_list: {
+    name: "Wish List",
+    add: "Add To Wish List"
+  },
+  valid: {
+    index: "This Field is Required",
+    name: "Name is Required",
+    email: "Email is Required",
+    phone: "Phone is Required",
+    password: "Password is Required",
+  },
+  features: {
+    fast: "Fast Delivered",
+    support: "Customer Support",
+    all_day: "Customer Support",
+  },
+  search: "Search",
+  sort_by: "Sort By",
+  price: "Price"
+
 }

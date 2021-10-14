@@ -150,8 +150,7 @@ export default {
     },
 
     LogOut({ commit }) {
-      let user = null;
-      commit("logout", user);
+      commit("logout");
       store.dispatch("shopModule/Cart/clearCart");
       store.dispatch("shopModule/Favourites/clearFavourites");
       // store.dispatch("shopModule/clearUserData");

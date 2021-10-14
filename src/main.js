@@ -20,9 +20,6 @@ axios.defaults.withCredentials = true;
 // axios.defaults.headers.post['Content-Type'] ='application/x-www-form-urlencoded';
 // axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 
-
-
-
 Vue.config.productionTip = false;
 Vue.prototype.$vuetify = vuetify;
 

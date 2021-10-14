@@ -6,4 +6,7 @@
 }
 [dir="rtl"] {
   font-family: Tajawal;
+  .v-card__title {
+    font-family: Tajawal !important;
+  }
 }

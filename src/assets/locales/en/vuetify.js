@@ -1,6 +1,7 @@
 export default {
   badge: 'Badge',
   close: 'Close',
+  city: "City",
   dataIterator: {
     noResultsText: 'No matching records found',
     loadingText: 'Loading items...'

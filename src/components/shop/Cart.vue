@@ -20,7 +20,7 @@
         >
           <v-icon>mdi-close</v-icon>
         </v-btn>
-        <v-toolbar-title>Shopping Cart</v-toolbar-title>
+        <v-toolbar-title>{{ $t('cart.name') }}</v-toolbar-title>
       </v-toolbar>
       <v-card-text>
 
@@ -28,7 +28,7 @@
           three-line
           subheader
         >
-          <v-subheader>Products List</v-subheader>
+          <v-subheader>{{ $t('products_list') }}</v-subheader>
 
           <transition name="fade" v-for="item in cart.cart_items" :key="item.id">
             <v-list-item>
@@ -41,7 +41,7 @@
                   <v-icon>mdi-close</v-icon>
                 </v-btn>
               </v-list-item-action>
-              <v-list-item-avatar tile size="50" class="mr-5">
+              <v-list-item-avatar tile size="50" class="mr-5 ml-5">
                 <v-img :src="item.product.image"></v-img>
               </v-list-item-avatar>
               <v-list-item-content>
@@ -82,11 +82,9 @@
         </v-list>
         <div v-if="checkCart">
           <v-divider></v-divider>
-          <v-subheader class="text-body-1">Total: <v-card-text class="font-weight-black" color="blue">${{cart.total}}</v-card-text></v-subheader>
+          <v-subheader class="text-body-1">{{ $t('total') }}: <v-card-text class="font-weight-black" color="blue">${{cart.total}}</v-card-text></v-subheader>
         </div>
-        <div v-else>
-          NO CART ITEMS
-        </div>
+        <div v-else v-text="$t('empty.cart')"></div>
       </v-card-text>
 
       <div style="flex: 1 1 auto;"></div>

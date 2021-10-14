@@ -19,29 +19,29 @@
                 v-model="userForm.name"
                 :rules="nameRules"
                 required
-                label="Name"></v-text-field>
+                :label="$t('form.name')"></v-text-field>
               <v-text-field
                 v-model="userForm.email"
                 :rules="emailRules"
                 required
-                label="Email"></v-text-field>
+                :label="$t('form.email')"></v-text-field>
               <v-text-field
                 v-model="userForm.phone"
                 :rules="phoneRules"
                 required
                 :counter="11"
-                label="Phone"></v-text-field>
-              <v-text-field
-                v-model="userForm.password"
-                :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-                :rules="passwordRules"
-                :type="show1 ? 'text' : 'password'"
-                name="input-10-1"
-                label="Password"
-                suggested="current-password"
-                hint="At least 8 characters"
-                @click:append="show1 = !show1"
-              ></v-text-field>
+                :label="$t('form.phone')"></v-text-field>
+<!--              <v-text-field-->
+<!--                v-model="userForm.password"-->
+<!--                :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"-->
+<!--                :rules="passwordRules"-->
+<!--                :type="show1 ? 'text' : 'password'"-->
+<!--                name="input-10-1"-->
+<!--                :label="$t('form.password')"-->
+<!--                suggested="current-password"-->
+<!--                hint="At least 8 characters"-->
+<!--                @click:append="show1 = !show1"-->
+<!--              ></v-text-field>-->
             </v-card-text>
             <div class="mr-4 ml-4">
               <v-alert
@@ -101,7 +101,7 @@
                       v-bind="attrs"
                       v-on="on"
                     >
-                      New Item
+                      {{ $t('btn.new_item') }}
                     </v-btn>
                   </template>
                   <v-card>
@@ -318,19 +318,6 @@ export default {
       ],
       dialog: false,
       dialogDelete: false,
-      headers: [
-        {
-          text: 'Name',
-          align: 'start',
-          sortable: false,
-          value: 'name',
-        },
-        { text: 'City', value: 'city' },
-        { text: 'Region', value: 'region' },
-        { text: 'Details', value: 'details' },
-        { text: 'Notes', value: 'notes' },
-        { text: 'Actions', value: 'actions', sortable: false },
-      ],
       // headers: [
       //   { text: 'Name', value: 'name' },
       //   { text: 'City', value: 'city' },
@@ -368,8 +355,25 @@ export default {
       addressesLogProccess: "authModule/Addresses/logProccess",
     }),
     formTitle () {
-      return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
+      console.log(this);
+      return this.editedIndex === -1 ? this.$t('btn.new_item') : this.$t('btn.edit_item')
     },
+    vm () {
+      return this;
+    },
+    headers() { return [
+      {
+        text: this.vm.$t('name'),
+        align: 'start',
+        sortable: false,
+        value: 'name',
+      },
+      { text: this.vm.$t('city'), value: 'city' },
+      { text: this.vm.$t('region'), value: 'region' },
+      { text: this.vm.$t('details'), value: 'details' },
+      { text: this.vm.$t('notes'), value: 'notes' },
+      { text: this.vm.$t('actions'), value: 'actions', sortable: false },
+    ] },
   },
   watch: {
     dialog (val) {

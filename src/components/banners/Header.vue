@@ -68,16 +68,17 @@
       v-model="drawer"
       absolute
       temporary
+      :right="dir === 'rtl'"
     >
       <template v-slot:prepend v-if="isAuthenticated">
-        <v-list-item two-line>
+        <v-list-item two-line color="deep-blue accent-4">
           <v-list-item-avatar>
             <img :src="user.image">
           </v-list-item-avatar>
 
           <v-list-item-content>
             <v-list-item-title>{{ user.name }}</v-list-item-title>
-            <v-list-item-subtitle>Logged In</v-list-item-subtitle>
+            <v-list-item-subtitle>{{ $t('logged_in') }}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
       </template>
@@ -89,7 +90,7 @@
       >
         <v-list-item-group
           v-model="group"
-          active-class="deep-purple--text text--accent-4"
+          active-class="blue--text text--accent-4"
         >
 
           <v-list-item :to="{ name: 'Login' }" v-if="!isAuthenticated">
@@ -158,7 +159,7 @@
               </v-list-item-content>
             </template>
             <v-list-item :to="{ name: 'Products' }">
-              <v-list-item-title>All</v-list-item-title>
+              <v-list-item-title>{{ $t("all") }}</v-list-item-title>
             </v-list-item>
             <v-list-item
               v-for="category in categories"
@@ -176,7 +177,7 @@
         <v-list-item-group>
 
           <template>
-            <v-subheader>Settings</v-subheader>
+            <v-subheader>{{ $t('settings') }}</v-subheader>
 
             <v-list-item
               active-class=""
@@ -184,15 +185,14 @@
             >
               <template v-slot:default="{ active }">
                 <v-list-item-content>
-                  <v-list-item-title>Dark Mode</v-list-item-title>
+                  <v-list-item-title>{{ $t('dark_mode') }}</v-list-item-title>
                 </v-list-item-content>
 
                 <v-list-item-action>
-                  <v-checkbox
-                    :input-value="isDark"
-                    color="deep-purple accent-4"
+                  <v-switch
+                    v-model="isDark"
                     @change="handleTheme(active)"
-                  ></v-checkbox>
+                  ></v-switch>
                 </v-list-item-action>
               </template>
             </v-list-item>
@@ -205,7 +205,7 @@
         >
           <template v-slot:activator>
             <v-list-item-content>
-              <v-list-item-title>Language</v-list-item-title>
+              <v-list-item-title>{{ $t('languages') }}</v-list-item-title>
             </v-list-item-content>
           </template>
 
@@ -269,6 +269,7 @@ import Favourites from "@/components/shop/Favourites";
        isDark: "themeModule/isDark",
        lang: "themeModule/lang",
        langs: "themeModule/langs",
+       dir: "themeModule/dir",
      }),
    },
    methods: {
@@ -353,5 +354,8 @@ import Favourites from "@/components/shop/Favourites";
   &:before, &:after {
     display: none;
   }
+}
+.theme--dark .v-navigation-drawer__content .blue--text.text--accent-4 {
+  color:#FFF !important;
 }
 </style>

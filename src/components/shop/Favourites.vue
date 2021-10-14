@@ -20,7 +20,7 @@
           >
             <v-icon>mdi-close</v-icon>
           </v-btn>
-          <v-toolbar-title>Favourite list</v-toolbar-title>
+          <v-toolbar-title>{{ $t('wish_list.name') }}</v-toolbar-title>
         </v-toolbar>
         <v-card-text>
 
@@ -28,7 +28,7 @@
             three-line
             subheader
           >
-            <v-subheader>Products List</v-subheader>
+            <v-subheader>{{ $t('products_list') }}</v-subheader>
 
             <transition name="fade" v-for="item in favourites" :key="item.id">
               <v-list-item>
@@ -41,7 +41,7 @@
                     <v-icon>mdi-close</v-icon>
                   </v-btn>
                 </v-list-item-action>
-                <v-list-item-avatar tile size="50" class="mr-5">
+                <v-list-item-avatar tile size="50" class="mr-5 ml-5">
                   <v-img :src="item.product.image"></v-img>
                 </v-list-item-avatar>
                 <v-list-item-content>
@@ -52,9 +52,7 @@
               </v-list-item>
             </transition>
 
-            <div v-if="!checkFavourites">
-              NO FAVOURITES ITEMS
-            </div>
+            <div v-if="!checkFavourites" v-text="$t('empty.whish_list')"></div>
           </v-list>
           <v-divider></v-divider>
         </v-card-text>

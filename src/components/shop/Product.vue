@@ -64,7 +64,7 @@
         >
           <v-icon left dark v-if="product.in_cart">mdi-check</v-icon>
           <v-icon left dark v-else>mdi-plus-circle-outline</v-icon>
-          Add To Cart
+          {{ $t('cart.add') }}
         </v-btn>
         <v-btn
           class="mx-2"

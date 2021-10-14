@@ -1,27 +1,6 @@
 <template>
   <div>
-    <v-sheet>
-      <v-container class="mt-10">
-        <v-row no-gutters>
-          <v-col
-            v-for="item in features"
-            :key="item.index"
-            cols="12"
-            sm="4"
-          >
-            <v-card
-              class="pa-5"
-              elevation="0"
-            >
-              <v-card-title class="text-h5">
-                <v-icon size="40" class="mr-3" color="blue">{{ item.icon }}</v-icon>
-                {{ item.title }}
-              </v-card-title>
-            </v-card>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-sheet>
+    <Features />
 
     <v-sheet>
       <v-container class="mt-10">
@@ -49,7 +28,7 @@
                   solo-inverted
                   hide-details
                   prepend-inner-icon="mdi-magnify"
-                  label="Search"
+                  :label="$t('search')"
                 ></v-text-field>
                 <template v-if="$vuetify.breakpoint.mdAndUp">
                   <v-spacer></v-spacer>
@@ -60,7 +39,7 @@
                     hide-details
                     :items="keys"
                     prepend-inner-icon="mdi-magnify"
-                    label="Sort by"
+                    :label="$t('sort_by')"
                   ></v-select>
                   <v-spacer></v-spacer>
                   <v-btn-toggle
@@ -207,9 +186,11 @@
 // import store from "@/store"
 import Product from "@/components/shop/Product";
 import { mapGetters } from "vuex";
+import Features from "@/components/Features";
 export default {
   name: "Products.vue",
   components: {
+    Features,
     Product
   },
   data() {
@@ -221,10 +202,7 @@ export default {
       page: 1,
       itemsPerPage: 4,
       sortBy: 'name',
-      keys: [
-        'Name',
-        'Price',
-      ],
+      keysMain: ["Name", "Price"]
     }
   },
   props: {
@@ -256,8 +234,17 @@ export default {
       return Math.ceil(this.productsData.length / this.itemsPerPage)
     },
     filteredKeys () {
-      return this.keys.filter(key => key !== 'Name')
+      return this.keysMain.filter(key => key !== 'Name')
     },
+    vm () {
+      return this;
+    },
+    keys() {
+      return [
+        this.vm.$t('name'),
+        this.vm.$t('price'),
+      ]
+    }
   },
   methods: {
     nextPage () {
